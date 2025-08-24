@@ -10,6 +10,11 @@ const taskSchema = new Schema({
     type: String,
     require: true,
   },
+  priority:{
+    type:String,
+    enum:['Baja','Media', 'Alta'],
+    require: true
+  },
   completed: {
     type: Boolean,
     default: false,
