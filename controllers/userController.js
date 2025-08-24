@@ -7,3 +7,12 @@ export const renderLogin = (req,res)=>{
 export const renderRegistro = (req,res)=>{
     return res.render('register');
 }
+
+//Funcion POST para el registro de página
+export const registerUser = async (req,res)=>{
+    try {
+        console.log(req);
+    } catch (error) {
+        console.log('Server Error:', error);
+    }
+}
