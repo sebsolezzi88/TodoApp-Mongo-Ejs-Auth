@@ -7,6 +7,9 @@ dotenv.config();
 const app = express(); //Crear app de express
 const PORT = process.env.PORT || 3000; //Puerto
 
+app.set("view engine", "ejs"); //Motor de plantillas
+app.use(express.json()); //Para analizar la solicitud de tipo Json
+
 getMongoConnection();//Conexión con la base de datos;
 
 app.listen(PORT,(req,res)=>{
