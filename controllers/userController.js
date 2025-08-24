@@ -20,7 +20,7 @@ export const loginUser = async (req, res) => {
     const existUser = await User.findOne({username});
     if(!existUser){
         return res.render("login", {
-        alert: { status: "error", msg: "Todos los campos son obligatorios." },
+        alert: { status: "error", msg: "Usuario no registrado." },
       });
     }
     
@@ -28,7 +28,7 @@ export const loginUser = async (req, res) => {
     const passwordEquals = await bccrypt.compare(password,existUser.password);
     if(!passwordEquals){
         return res.render("login", {
-        alert: { status: "error", msg: "Todos los campos son obligatorios." },
+        alert: { status: "error", msg: "Password incorrecto." },
       });
     }
 
