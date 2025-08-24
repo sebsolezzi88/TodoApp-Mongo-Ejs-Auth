@@ -5,7 +5,40 @@ import bccrypt from "bcrypt";
 export const renderLogin = (req, res) => {
   return res.render("login");
 };
+//Funcion POST para el el login
+export const loginUser = async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
+    // Validar campos vacíos
+    if (!username || !password ) {
+      return res.render("login", {
+        alert: { status: "error", msg: "Todos los campos son obligatorios." },
+      });
+    }
+    //Comprobar si el usuario está registrado
+    const existUser = await User.findOne({username});
+    if(!existUser){
+        return res.render("login", {
+        alert: { status: "error", msg: "Todos los campos son obligatorios." },
+      });
+    }
+    
+    //Comprobar contraseña
+    const passwordEquals = await bccrypt.compare(password,existUser.password);
+    if(!passwordEquals){
+        return res.render("login", {
+        alert: { status: "error", msg: "Todos los campos son obligatorios." },
+      });
+    }
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).render("login", { 
+      alert: { status: "error", msg: "Error en el servidor." }
+    });
+  }
+};
 //Función para cargar la página de registro
 export const renderRegistro = (req, res) => {
   return res.render("register");
