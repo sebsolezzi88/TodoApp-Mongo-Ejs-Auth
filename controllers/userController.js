@@ -48,7 +48,7 @@ export const registerUser = async (req, res) => {
     }
 
     //Comprobamos que no exista el usuario
-    const userExist = User.findOne({ username });
+    const userExist = await User.findOne({ username });
     if (userExist) {
       return res.render("register", {
         alert: { status: "error", msg: "Usuario ya registrado." },
