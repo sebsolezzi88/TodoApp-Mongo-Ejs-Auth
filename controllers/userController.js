@@ -11,7 +11,8 @@ export const renderRegistro = (req,res)=>{
 //Funcion POST para el registro de página
 export const registerUser = async (req,res)=>{
     try {
-        console.log(req);
+        console.log(req.body);
+        return res.render('register');
     } catch (error) {
         console.log('Server Error:', error);
     }
