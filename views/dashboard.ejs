@@ -5,7 +5,7 @@
 
  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl">
         <!-- Mostrar mensajes -->
-            <% if (typeof alert !=="undefined" ) { %>
+            <% if ( alert ) { %>
                 <div
                     class="<%= alert.status === 'success' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' %> px-4 py-2 rounded mb-4">
                     <%= alert.msg %>
