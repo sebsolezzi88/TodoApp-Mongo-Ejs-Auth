@@ -129,3 +129,22 @@ export const deleteTask = async (req, res) => {
   };
   return res.redirect("/tarea/panel");
 };
+
+//Funcion para mostrar el formulario como de editar tarea
+export const renderEditTask = async (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/user/login");
+  }
+  const { taskId } = req.params;
+
+  //Comprobar si el id de la tarea es valido
+  if (!taskId || !mongoose.isValidObjectId(taskId)) {
+    req.session.alert = {
+      status: "error",
+      msg: "Id no valido",
+    };
+    return res.redirect("/tarea/panel");
+  }
+
+  return res.render("edittask");
+};
