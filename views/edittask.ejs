@@ -1,0 +1,58 @@
+<%- include("partials/header") %>
+    <div class="flex items-center justify-center mt-6">
+        <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+            <!-- Mostrar mensajes -->
+            <% if (typeof alert !=="undefined" ) { %>
+                <div
+                    class="<%= alert.status === 'success' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' %> px-4 py-2 rounded mb-4">
+                    <%= alert.msg %>
+                </div>
+                <% } %>
+            <!-- Fin de mostrar mensajes -->
+                    <h1 class="text-3xl font-bold text-emerald-800 mb-6 text-center">
+                        Agregar Nueva Tarea
+                    </h1>
+
+                    <form method="post" action="/tarea/nueva">
+                        <!-- Campo para el titulo de la tarea -->
+                        <div class="mb-4">
+                            <label for="title" class="block text-gray-700 font-semibold mb-2">Titulo</label>
+                            <input type="text" id="title" name="title"
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                placeholder="Ingresa un titulo" required />
+                        </div>
+                        <!-- Campo para el texto de la tarea -->
+                        <div class="mb-4">
+                            <label for="taskText" class="block text-gray-700 font-semibold mb-2">Descripción de la
+                                Tarea</label>
+                            <textarea id="taskText" name="text" rows="4"
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                placeholder="Escribe aquí la descripción de tu tarea..." required></textarea>
+                        </div>
+
+                        <!-- Campo para la prioridad -->
+                        <div class="mb-6">
+                            <label for="priority" class="block text-gray-700 font-semibold mb-2">Prioridad</label>
+                            <select id="priority" name="priority"
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                required>
+                                <option value="">Selecciona la prioridad</option>
+                                <option value="Baja">Baja</option>
+                                <option value="Media">Media</option>
+                                <option value="Alta">Alta</option>
+                            </select>
+                        </div>
+
+                        <!-- Botón para guardar la tarea -->
+                        <button type="submit"
+                            class="w-full bg-emerald-800 text-white font-bold py-2 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition duration-300">
+                            Editar tarea
+                        </button>
+                    </form>
+
+                    <!-- Botón para volver al dashboard de tareas -->
+                    <div class="mt-6 text-center">
+                        <a href="/tarea/panel" class="text-emerald-700 hover:underline text-sm">Volver a Mis Tareas</a>
+                    </div>
+        </div>
+    </div>
