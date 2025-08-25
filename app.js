@@ -1,8 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import session from 'express-session';
 import { getMongoConnection } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
-import session from 'express-session';
+import taskRoutes from './routes/taskRoutes.js';
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.use(express.urlencoded({ extended: true })); // Para formularios (x-www-form
 app.use(express.json()); //Para analizar la solicitud de tipo Json
 
 app.use('/user',userRoutes); //Agregando rutas de user
+app.use('/tarea',taskRoutes); //Agregando rutas para las tareas
+
 
 getMongoConnection();//Conexión con la base de datos;
 
