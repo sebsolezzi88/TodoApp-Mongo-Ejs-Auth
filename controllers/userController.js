@@ -32,6 +32,13 @@ export const loginUser = async (req, res) => {
       });
     }
 
+    //Si la contraseña es correcta generamos la session
+    req.session.user = {
+      id: existUser._id,
+      username: existUser.username,
+    };
+    return res.redirect('/tarea/panel');
+
   } catch (error) {
     console.log(error);
     return res.status(500).render("login", { 
