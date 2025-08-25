@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Task from '../models/Task.js'
 
 
@@ -81,3 +82,49 @@ export const newTask = async (req, res) => {
 
   return res.render('newtask');
 };
+
+//Funcion para borrar tarea
+export const deleteTask = async (req,res) =>{
+  if(!req.session.user){
+        return res.redirect('/user/login');
+  }
+  const {taskId} = req.params; //Obtenemos el id
+
+  //Comprobar si la tarea es valida
+  if(!taskId || !mongoose.isValidObjectId(taskId)){
+    return res.render("dashboard", {
+        alert: {
+          status: "error",
+          msg: "Id no valido.",
+        },
+    });
+  }
+
+  //Buscar si existe la tarea
+  const taskExist = await Task.findById(taskId);
+  if(!taskExist){
+    return res.render("dashboard", {
+        alert: {
+          status: "error",
+          msg: "Tarea no encontrada",
+        },
+    });
+  }
+  //Verificar si la tarea pertenece al usuario que la creo
+  if(taskExist.creator.toString() !== req.session.user.id.toString()){
+    return res.render("dashboard", {
+        alert: {
+          status: "error",
+          msg: "Acción no valida",
+        },
+    });
+  }
+  //Borramos la tarea
+  await taskExist.destroy();
+  return res.redirect("dashboard", {
+        alert: {
+          status: "success",
+          msg: "Tarea borrada",
+        },
+    });
+}
