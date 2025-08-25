@@ -1,4 +1,18 @@
+import Task from '../models/Task.js'
 //Función que reenderiza el dashboard y protegida con express-session
-export const renderDashboard = (req, res) => {
-  return res.render('dashboard');
+export const renderDashboard = async (req, res) => {
+    if(!req.session.user){
+        return res.redirect('/user/login');
+    }
+
+    const {id,username} = req.session.user; //Extraemos las variables
+
+    //Buscar tareas del usuario logueado si las tiene
+    const tasks = await Task.find({creator:id})
+    const data={
+      username,
+      tasks
+    }
+
+  return res.render('dashboard',data);
 };
