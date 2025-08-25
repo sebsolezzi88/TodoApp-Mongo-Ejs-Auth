@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import session from 'express-session';
+import methodOverride from "method-override";
 import { getMongoConnection } from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
@@ -18,6 +19,7 @@ app.use(session({ //Uso de express session
   cookie: { secure: false } 
 }));
 app.use(express.urlencoded({ extended: true })); // Para formularios (x-www-form-urlencoded)
+app.use(methodOverride("_method")); //Para cambiar metodo de post de los formulario por delete
 app.use(express.json()); //Para analizar la solicitud de tipo Json
 
 app.use('/user',userRoutes); //Agregando rutas de user
