@@ -1,4 +1,6 @@
 import Task from '../models/Task.js'
+
+
 //Función que reenderiza el dashboard y protegida con express-session
 export const renderDashboard = async (req, res) => {
     if(!req.session.user){
@@ -15,4 +17,13 @@ export const renderDashboard = async (req, res) => {
     }
 
   return res.render('dashboard',data);
+};
+
+//Función para reenderizar el formulario de nueva tarea
+export const renderNewTask = async (req, res) => {
+    if(!req.session.user){
+        return res.redirect('/user/login');
+    }
+
+  return res.render('newtask');
 };
