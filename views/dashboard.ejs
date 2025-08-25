@@ -13,18 +13,21 @@
             </a>
         </div>
 
-        <!-- Mensaje si no hay tareas (inicialmente oculto) -->
-        <div class="hidden text-center text-gray-500 mb-6">
+        <% if (tasks.length === 0) { %>
+            <!-- Mensaje si no hay tareas (inicialmente oculto) -->
+        <div class="text-center text-gray-500 mb-6">
             <p class="text-lg">Aún no tienes tareas. ¡Haz clic en "Agregar Nueva Tarea" para empezar!</p>
         </div>
-
-        <!-- Contenedor de tareas -->
+        <% } else { %>
+            <!-- Contenedor de tareas -->
         <div id="tasks-container" class="space-y-4">
             
           
 
         </div>
         <!-- Fin Contenedor de tareas -->
+        <% } %>
+        
     </div>
     </div>
 
