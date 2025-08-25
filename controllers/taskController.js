@@ -27,3 +27,15 @@ export const renderNewTask = async (req, res) => {
 
   return res.render('newtask');
 };
+
+//Función post para ingresar una nueva tarea
+export const newTask = async (req, res) => {
+    if(!req.session.user){
+        return res.redirect('/user/login');
+    }
+
+    const {id,username} = req.session.user; //Extraemos las variables
+    console.log(req.body);
+
+  return res.render('newtask');
+};
