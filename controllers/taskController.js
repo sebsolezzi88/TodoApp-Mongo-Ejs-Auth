@@ -120,7 +120,7 @@ export const deleteTask = async (req,res) =>{
     });
   }
   //Borramos la tarea
-  await taskExist.destroy();
+  await taskExist.deleteOne();
   return res.redirect("dashboard", {
         alert: {
           status: "success",
