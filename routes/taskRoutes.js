@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { newTask, renderDashboard, renderNewTask } from "../controllers/taskController.js";
+import { deleteTask, newTask, renderDashboard, renderNewTask } from "../controllers/taskController.js";
 
 const router = Router();
 
@@ -7,6 +7,7 @@ router.get('/panel',renderDashboard); //Mostrar dashboard, protegida por sessió
 router.get('/nueva',renderNewTask); //Mostrar formulario para ingresar tareas
 
 router.post('/nueva',newTask);// Crear nueva tara
+router.delete('/borrar/:taskId',deleteTask); //Ruta para borrar tarea
 
 
 
