@@ -39,6 +39,11 @@ app.get('/',(req,res)=>{
 app.use('/user',userRoutes); //Agregando rutas de user
 app.use('/tarea',taskRoutes); //Agregando rutas para las tareas
 
+//Ruta para las páginas inexistentes
+app.use((req, res) => {
+  res.status(404).render("404");
+})
+
 
 getMongoConnection();//Conexión con la base de datos;
 
