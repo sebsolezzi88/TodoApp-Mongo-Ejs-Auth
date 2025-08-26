@@ -158,3 +158,70 @@ export const renderEditTask = async (req, res) => {
 
   return res.render("edittask", {task});
 };
+
+export const editTask = async (req,res)=>{
+  //Funcion para editar la tarea
+if (!req.session.user) {
+    return res.redirect("/user/login");
+  }
+
+  const { id, username } = req.session.user; //Extraemos las variables
+  const {taskId} = req.params; //Id de la tarea a editar
+
+  const { title, text, priority } = req.body;
+
+  //Comprobar titulo
+  if (!title || title.trim() === "") {
+    return res.render("edittask", {
+      alert: { status: "error", msg: "El titulo es requerido." },
+    });
+  }
+  //Comprobar descripcion
+  if (!text || text.trim() === "") {
+    return res.render("edittask", {
+      alert: { status: "error", msg: "La descripción es requerida" },
+    });
+  }
+  //Comprobar prioridad
+  if (!priority || priority.trim() === "") {
+    return res.render("edittask", {
+      alert: { status: "error", msg: "La prioridad es requerida" },
+    });
+  }
+  //Comprobar prioridad valida
+  const priorities = ["Baja", "Media", "Alta"];
+  if (!priorities.includes(priority)) {
+    return res.render("edittask", {
+      alert: { status: "error", msg: "La prioridad no es valida" },
+    });
+  }
+
+   //Comprobar si la tarea existe
+  const task = await Task.findById(taskId);
+  if (!task) {
+    req.session.alert = {
+      status: "error",
+      msg: "Id no valido",
+    };
+    return res.redirect("/tarea/panel");
+  }
+  //Verificar si la tarea pertenece al usuario que la creo
+  if (task.creator.toString() !== req.session.user.id.toString()) {
+    req.session.alert = {
+      status: "error",
+      msg: "Acción no permitida",
+    };
+    return res.redirect("/tarea/panel");
+  }
+  //Editar la tarea
+  task.title = title;
+  task.priority = priority;
+  task.text= text;
+  await task.save(); // Guardar cambios
+
+  req.session.alert = {
+      status: "success",
+      msg: "Tarea actualizada",
+    };
+    return res.redirect("/tarea/panel");
+}
