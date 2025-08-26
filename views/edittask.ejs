@@ -10,7 +10,7 @@
                 <% } %>
             <!-- Fin de mostrar mensajes -->
                     <h1 class="text-3xl font-bold text-emerald-800 mb-6 text-center">
-                        Agregar Nueva Tarea
+                        Edita tu Tarea
                     </h1>
 
                     <form method="post" action="/tarea/nueva">
@@ -19,7 +19,7 @@
                             <label for="title" class="block text-gray-700 font-semibold mb-2">Titulo</label>
                             <input type="text" id="title" name="title"
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                                placeholder="Ingresa un titulo" required />
+                                placeholder="Ingresa un titulo" required value="<%= task.title %>" />
                         </div>
                         <!-- Campo para el texto de la tarea -->
                         <div class="mb-4">
@@ -27,7 +27,7 @@
                                 Tarea</label>
                             <textarea id="taskText" name="text" rows="4"
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                                placeholder="Escribe aquí la descripción de tu tarea..." required></textarea>
+                                placeholder="Escribe aquí la descripción de tu tarea..." required><%= task.text %></textarea>
                         </div>
 
                         <!-- Campo para la prioridad -->
@@ -37,9 +37,9 @@
                                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                                 required>
                                 <option value="">Selecciona la prioridad</option>
-                                <option value="Baja">Baja</option>
-                                <option value="Media">Media</option>
-                                <option value="Alta">Alta</option>
+                                <option value="Baja" <%= task.priority === 'Baja' ? 'selected' : '' %>>Baja</option>
+                                <option value="Media" <%= task.priority === 'Media' ? 'selected' : '' %>>Media</option>
+                                <option value="Alta" <%= task.priority === 'Alta' ? 'selected' : '' %>>Alta</option>
                             </select>
                         </div>
 

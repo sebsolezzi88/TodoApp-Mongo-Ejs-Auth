@@ -147,7 +147,7 @@ export const renderEditTask = async (req, res) => {
   }
 
   //Comprobar si la tarea existe
-  const task = Task.findById(taskId);
+  const task = await Task.findById(taskId);
   if (!task) {
     req.session.alert = {
       status: "error",
@@ -156,5 +156,5 @@ export const renderEditTask = async (req, res) => {
     return res.redirect("/tarea/panel");
   }
 
-  return res.render("edittask", task);
+  return res.render("edittask", {task});
 };
