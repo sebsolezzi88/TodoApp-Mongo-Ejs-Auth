@@ -50,6 +50,15 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
+//Funcion para el Logout
+export const logoutUser = (req, res) => {
+  req.session.destroy(err => {
+    if (err) return res.redirect("/tarea/panel");
+    res.redirect("/user/login");
+  });
+};
+
 //Función para cargar la página de registro
 export const renderRegistro = (req, res) => {
   //Si el usuario esta logueado lo mandamos al panel
