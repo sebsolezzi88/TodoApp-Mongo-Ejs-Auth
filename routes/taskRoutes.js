@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteTask, editTask, newTask, renderDashboard, renderEditTask, renderNewTask } from "../controllers/taskController.js";
+import { changeCompleted, deleteTask, editTask, newTask, renderDashboard, renderEditTask, renderNewTask } from "../controllers/taskController.js";
 
 const router = Router();
 
@@ -10,6 +10,7 @@ router.get('/editar/:taskId',renderEditTask); //Mostrar formulario para editar t
 
 router.post('/nueva',newTask);// Crear nueva tarea
 router.put('/editar/:taskId',editTask); //Función para editar la tarea
+router.put('/completar/:taskId',changeCompleted); //Función para editar estado de la tarea
 router.delete('/borrar/:taskId',deleteTask); //Ruta para borrar tarea
 
 
