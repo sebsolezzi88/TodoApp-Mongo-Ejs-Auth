@@ -146,5 +146,15 @@ export const renderEditTask = async (req, res) => {
     return res.redirect("/tarea/panel");
   }
 
-  return res.render("edittask");
+  //Comprobar si la tarea existe
+  const task = Task.findById(taskId);
+  if (!task) {
+    req.session.alert = {
+      status: "error",
+      msg: "Id no valido",
+    };
+    return res.redirect("/tarea/panel");
+  }
+
+  return res.render("edittask", task);
 };
