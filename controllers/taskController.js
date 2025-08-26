@@ -159,6 +159,7 @@ export const renderEditTask = async (req, res) => {
   return res.render("edittask", {task});
 };
 
+  //Funcion para editar la tarea
 export const editTask = async (req,res)=>{
   //Funcion para editar la tarea
 if (!req.session.user) {
@@ -217,6 +218,45 @@ if (!req.session.user) {
   task.title = title;
   task.priority = priority;
   task.text= text;
+  await task.save(); // Guardar cambios
+
+  req.session.alert = {
+      status: "success",
+      msg: "Tarea actualizada",
+    };
+    return res.redirect("/tarea/panel");
+}
+
+//Función para marcar como completada o desmarcar
+export const changeCompleted = async (req,res)=>{
+
+  if (!req.session.user) {
+    return res.redirect("/user/login");
+  }
+
+  const { id, username } = req.session.user; //Extraemos las variables
+  const {taskId} = req.params; //Id de la tarea a editar
+
+  //Comprobar si la tarea existe
+  const task = await Task.findById(taskId);
+  if (!task) {
+    req.session.alert = {
+      status: "error",
+      msg: "Id no valido",
+    };
+    return res.redirect("/tarea/panel");
+  }
+  //Verificar si la tarea pertenece al usuario que la creo
+  if (task.creator.toString() !== req.session.user.id.toString()) {
+    req.session.alert = {
+      status: "error",
+      msg: "Acción no permitida",
+    };
+    return res.redirect("/tarea/panel");
+  }
+  //Editar estado de la tarea
+  task.completed = !task.completed;
+
   await task.save(); // Guardar cambios
 
   req.session.alert = {
