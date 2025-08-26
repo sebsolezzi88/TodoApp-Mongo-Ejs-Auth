@@ -31,6 +31,11 @@ app.use((req, res, next) => {
   next();
 });
 
+//Ruta de página de Bienvenida
+app.get('/',(req,res)=>{
+  return res.render('main');
+});
+
 app.use('/user',userRoutes); //Agregando rutas de user
 app.use('/tarea',taskRoutes); //Agregando rutas para las tareas
 
