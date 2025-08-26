@@ -22,6 +22,15 @@ app.use(express.urlencoded({ extended: true })); // Para formularios (x-www-form
 app.use(methodOverride("_method")); //Para cambiar metodo de post de los formulario por delete
 app.use(express.json()); //Para analizar la solicitud de tipo Json
 
+/* 
+  Middleware global para tener acceso a user en todas los archivos .ejs
+  Esto servirá para mostrar de manera condicional el boton de login o logout
+*/
+app.use((req, res, next) => { 
+  res.locals.user = req.session.user || null;
+  next();
+});
+
 app.use('/user',userRoutes); //Agregando rutas de user
 app.use('/tarea',taskRoutes); //Agregando rutas para las tareas
 
