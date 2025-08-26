@@ -13,7 +13,7 @@
                         Edita tu Tarea
                     </h1>
 
-                    <form method="post" action="/tarea/nueva">
+                    <form action="/tarea/editar/<%= task._id %>?_method=PUT" method="POST"> 
                         <!-- Campo para el titulo de la tarea -->
                         <div class="mb-4">
                             <label for="title" class="block text-gray-700 font-semibold mb-2">Titulo</label>
@@ -43,7 +43,7 @@
                             </select>
                         </div>
 
-                        <!-- Botón para guardar la tarea -->
+                        <!-- Botón para guardar la tarea editada -->
                         <button type="submit"
                             class="w-full bg-emerald-800 text-white font-bold py-2 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition duration-300">
                             Editar tarea
