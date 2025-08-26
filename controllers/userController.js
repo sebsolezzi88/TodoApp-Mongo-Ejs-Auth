@@ -3,6 +3,10 @@ import bccrypt from "bcrypt";
 
 //Funcíon para cargar la página de login
 export const renderLogin = (req, res) => {
+  //Si el usuario esta logueado lo mandamos al panel
+  if (req.session.user) {
+    return res.redirect("/tarea/panel");
+  }
   return res.render("login");
 };
 //Funcion POST para el el login
@@ -48,6 +52,10 @@ export const loginUser = async (req, res) => {
 };
 //Función para cargar la página de registro
 export const renderRegistro = (req, res) => {
+  //Si el usuario esta logueado lo mandamos al panel
+  if (req.session.user) {
+    return res.redirect("/tarea/panel");
+  }
   return res.render("register");
 };
 
